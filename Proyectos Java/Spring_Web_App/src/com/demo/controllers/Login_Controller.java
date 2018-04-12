@@ -4,15 +4,18 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.models.Login_Model;
+import com.demo.pojo.User;
 
 @Controller
 //Clase controladora que devuelve un MAV o un String para redirigir a la pagina
@@ -24,6 +27,9 @@ public class Login_Controller {
 		
 		ModelAndView mav = new ModelAndView("login");
 		System.out.println("Se ha llamado al metodo login");
+		
+		User user = new User();
+		mav.addObject("user", user);
 		
 		//Incremento el valor de la cookie para despues reasignarla de nuevo
 		hits++;
@@ -44,27 +50,41 @@ public class Login_Controller {
 	}*/
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String do_login(HttpServletRequest req, Model md, HttpSession session) {
+	public String do_login(HttpServletRequest req, Model md, HttpSession session, @Valid User user, BindingResult br) {
 		
 		try {
+			
+			//System.out.println(br.getAllErrors().size());
 			
 			String username= req.getParameter("username");
 			String password= req.getParameter("password");
 			
 			System.out.println("Usuario: " +username + " Pass: " +password);
-			Login_Model lm = new Login_Model();
-			String message = lm.do_login_process(username, password);
 			
-			if(message.equals("Login_Correcto")) {
+			//Si hay algun error de validacion no hago nada
+			if(br.getAllErrors().size() > 0) {
+			
+				System.out.println("Se ha validad por el lado servidor");
 				
-				//RECOJO LA SESION Y LE ASIGNO UN NOMBRE
-				session.setAttribute("username", username);
-				return "redirect:/myprofile";
-				
+			//Si no hay ningun error me compruebo mi User y password para loguearme 	
 			}else {
 				
-				md.addAttribute("error_msg", message);
+				Login_Model lm = new Login_Model();
+				String message = lm.do_login_process(username, password);
+				
+				if(message.equals("Login Correcto")) {
+					
+					//RECOJO LA SESION Y LE ASIGNO UN NOMBRE
+					session.setAttribute("username", username);
+					return "redirect:/myprofile";
+					
+				}else {
+					
+					md.addAttribute("error_msg", message);
+				}
+				
 			}
+			
 			
 			return "login";
 			

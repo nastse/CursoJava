@@ -24,7 +24,7 @@ public class Login_Model {
 			
 			if(count ==1) {
 
-				return "Login_Correcto";	
+				return "Login Correcto";	
 			}else {
 
 				return "Usuario o contraseña incorrectos";

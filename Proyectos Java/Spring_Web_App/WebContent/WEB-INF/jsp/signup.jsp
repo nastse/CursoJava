@@ -5,22 +5,54 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sign Up Here</title>
+
+	<script type="text/javascript">
+		
+		function dovalidations(){
+			
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			var repassword = document.getElementById("repassword").value;
+			
+			if(parseInt(username.length) < 4){
+				
+				alert("El nombre debe tener mas de 3 caracteres");
+				return false;
+			}
+			
+			if(parseInt(password.length) < 6){
+				
+				alert("La contraseña debe tener mas de 5 caracteres");
+				return false;
+			}
+			
+			if(password != repassword){
+				
+				alert("La contraseña no coincide");
+				return false;
+			}
+
+			return true;
+		}
+	
+	</script>
+
 </head>
 <body>
 
-	<form action="${pageContext.request.contextPath}/signup" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/signup" method="post" enctype="multipart/form-data" onsubmit="return dovalidations()">
 		<table>
 			<tr>
 				<td><label>Nombre de Usuario:</label></td>
-				<td><input type="text" name="username"></td>
+				<td><input id="username" type="text" name="username"></td>
 			</tr>
 			<tr>
 				<td><label>Contraseña:</label></td>
-				<td><input type="password" name="password"></td>
+				<td><input id="password" type="password" name="password"></td>
 			</tr>
 			<tr>
 				<td><label>Confirma Contraseña:</label></td>
-				<td><input type="password" name="repassword"></td>
+				<td><input id="repassword" type="password" name="repassword"></td>
 			</tr>
 			<tr>
 				<td><label>Género:</label></td>
