@@ -2,6 +2,12 @@ package com.demo.models;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.demo.pojo.User;
 
 public class Login_Model {
 	
@@ -34,6 +40,31 @@ public class Login_Model {
 		}catch(Exception e){
 			
 			return "Ha ocurrido un error, vuelve a intentarlo";
+		}
+		
+	}
+	
+	public String doHibernateLogin(String username, String password) {
+		
+		try {
+			
+			SessionFactory sessionFactory = HibernateConnection.doHibernateConnection();
+			Session session = sessionFactory.openSession();
+			
+			session.beginTransaction();
+			
+			//Consulta HLO
+			List<User> user = session.createQuery("From User where username='"+username+"'and password='"+password+"'").list();
+			
+			//Cerramos la sesion
+			session.close();
+			
+			if(user.size()==1) return "Login Correcto";
+			else return "Error vuelve a intenarlo";
+			
+			
+		}catch(Exception e) {
+			return "Intentalo de nuevo";
 		}
 		
 	}

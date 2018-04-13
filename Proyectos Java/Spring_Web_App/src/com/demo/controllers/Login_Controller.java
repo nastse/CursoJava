@@ -70,8 +70,8 @@ public class Login_Controller {
 			}else {
 				
 				Login_Model lm = new Login_Model();
-				String message = lm.do_login_process(username, password);
-				
+				//LOGUE USANDO CONSULTA HQL
+				String message = lm.doHibernateLogin(username, password);
 				if(message.equals("Login Correcto")) {
 					
 					//RECOJO LA SESION Y LE ASIGNO UN NOMBRE
@@ -82,6 +82,24 @@ public class Login_Controller {
 					
 					md.addAttribute("error_msg", message);
 				}
+				
+				
+				
+				//LOGUE USANDO CONSULTA SQL
+				/*String message = lm.do_login_process(username, password);
+				
+				if(message.equals("Login Correcto")) {
+					
+					//RECOJO LA SESION Y LE ASIGNO UN NOMBRE
+					session.setAttribute("username", username);
+					return "redirect:/myprofile";
+					
+				}else {
+					
+					md.addAttribute("error_msg", message);
+				}*/
+				
+				
 				
 			}
 			
