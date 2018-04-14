@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.models.Signup_Model;
+import com.demo.pojo.User;
 
 
 
@@ -55,10 +56,24 @@ public class Signup_Controller
 			String image = new File(data.get(6).getName()).getName();
 			//System.out.println(username + " " +password);
 			
+			//Creo un objeto de usuerio
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setGendre(gender);
+			user.setCountry(country);
+			user.setVehicle(vehicle);
+			user.setImage(image);
+			
 			 if(password.equals(repassword))
 			{
 				Signup_Model sm = new Signup_Model();
-				message = sm.doSignUp(username, repassword, gender, vehicle, country, image);
+				
+				//INSERTAR UN USUARIO EN LA BDDA TIPO SQL
+				//message = sm.doSignUp(username, repassword, gender, vehicle, country, image);
+				
+				//INSERTAR UN USUARIO EN LA BDDA TIPO HQL
+				message=sm.doHibernateSignUp(user);
 				
 				String path = request.getSession().getServletContext().getRealPath("/") + "//WEB-INF//images//";
 				

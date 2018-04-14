@@ -1,4 +1,4 @@
-package com.demo.models;
+package com.demo.dao.implementation;
 
 import java.util.Properties;
 

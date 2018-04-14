@@ -98,9 +98,6 @@ public class Login_Controller {
 					
 					md.addAttribute("error_msg", message);
 				}*/
-				
-				
-				
 			}
 			
 			

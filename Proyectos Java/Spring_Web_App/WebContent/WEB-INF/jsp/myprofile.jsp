@@ -10,5 +10,10 @@
 
 	<h2>Howdy,${user}</h2>
 	
+	<hr>
+	
+	<a href="${pageContext.request.contextPath}/products">Lista productos</a>
+	
+	
 </body>
 </html>
