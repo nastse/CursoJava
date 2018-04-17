@@ -9,4 +9,6 @@ public interface ProductsDAO {
 	
 	public List<Products> getAllProducts();
 	
+	public boolean deleteProductById(String id);
+	
 }

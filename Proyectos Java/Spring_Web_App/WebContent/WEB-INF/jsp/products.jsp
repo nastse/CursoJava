@@ -7,27 +7,64 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Productos</title>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+	<script type="text/javascript">
+	
+	<%-- FUNCION QUE ELIMINA UN PRODUCTO/FILA AL HACER CLICK EN EL BOTON --%>
+	function deleteProduct(id){
+		id = id.split("_")[1];
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath}/deleteProduct",
+			type : "post",
+			data : "productId="+id,
+			
+			success : function(response){
+				var table = document.getElementById("productTable");
+				var tr = document.getElementById("tr_"+id);
+				table.deleteRow(tr.rowIndex);
+				alert(response);
+			},
+			
+			error :function(error){
+				alert(error);
+			}
+			
+		});
+		
+	}
+	
+	</script>
+	
+
+
 </head>
 <body>
 	
-	<table border="1">
+	<table border="1" id="productTable">
 			<tr>
 				<th>Nombre</th>
 				<th>Precio</th>
 				<th>Descripcion</th>
 				<th>Imagen</th>
+				<th>Action</th>
 			</tr>
 			
 
 		<%-- LE PASO EL OBJETO QUE ME DEVUELVE EL CONTROLADOR  --%>
 		<%-- HAGO UN FOREACH PARA MOSTRAR TODAS LAS FILAS QUE ME DEVUELVE LA CONSULTA  --%>
 		<c:forEach items="${allProducts}" var="product">
-			<tr align="center">
+		<%-- PARA SABER QUE PRODUCTO/FILA ELIMINO  --%>
+			<tr  id="tr_${product.id}" align="center">
 				<%-- LLAMO AL OBJETO EL VALOR QUE QUIERO MOSTRAR  --%>
 				<td>${product.name}</td>
 				<td>${product.price}$</td>
 				<td>${product.description}</td>
 				<td><img width="200px" height="200px" src="${pageContext.request.contextPath}/img/${product.image}"></td>	
+				<td><input type="button" value="Delete" id="btn_${product.id}" onclick="deleteProduct(this.id)"></td>
 			</tr>
 		</c:forEach>
 	</table>

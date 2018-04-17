@@ -24,5 +24,26 @@ public List<Products> getAllProducts(){
 		//DEVUELVE UN POJO
 		return allProducts;
 	}
+
+	public boolean deleteProductById(String id){
+		try{
+			Session session = HibernateConnection.doHibernateConnection().openSession();
+			
+			List<Products> product = session.createQuery("From Products where id='"+id+"'").list();
+			
+			if(product != null && product.get(0) != null){
+				session.beginTransaction();
+				session.delete(product.get(0));
+				session.getTransaction().commit();
+				session.close();
+			}
+			
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 }
