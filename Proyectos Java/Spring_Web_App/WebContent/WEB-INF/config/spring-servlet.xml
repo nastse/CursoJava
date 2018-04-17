@@ -21,4 +21,29 @@
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"></mvc:resources>
 	
+	
+	<bean id="firstJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.demo.jobs.FirstJob"></property>
+	</bean>
+	
+	<bean id="firstJobTrigegr" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="firstJob"></property>
+		<property name="cronExpression" value="0 31 23 1/1 * ? *"></property>
+	</bean>
+	
+	<bean id="schedularManager" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	
+		<property name="jobDetails">
+			<list>
+				<ref bean="firstJob"/>
+			</list>
+		</property>
+	
+		<property name="triggers">
+			<list>
+				<ref bean="firstJobTrigegr"/>
+			</list>
+		</property>
+	</bean>
+	
 </beans>
