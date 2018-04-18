@@ -25,10 +25,10 @@ public class RegisteryDAO {
 	}
 
 	
+	
 	public static com.demo.dao.layer.UserDAO getUserDAO() {
 		return userDAO;
 	}
-	
 	
 	public static void setUserDAO(com.demo.dao.layer.UserDAO userDAO) {
 		RegisteryDAO.userDAO = userDAO;

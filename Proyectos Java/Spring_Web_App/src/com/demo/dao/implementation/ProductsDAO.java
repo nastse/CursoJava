@@ -12,8 +12,9 @@ import com.demo.pojo.Products;
 
 public class ProductsDAO implements com.demo.dao.layer.ProductsDAO {
 
+//DEVUELVO LA LISTA DE PRODUCTOS	
 	//SUSTITUYO LOS MODELS POR DAO
-public List<Products> getAllProducts(){
+	public List<Products> getAllProducts(){
 		
 		//CREO LA SESION DE HIBERNATE - NECESITO CREAR UN CONTROLADOR
 		Session session = HibernateConnection.doHibernateConnection().openSession();
@@ -25,6 +26,7 @@ public List<Products> getAllProducts(){
 		return allProducts;
 	}
 
+//BORRAR UN PRODUCTO
 	public boolean deleteProductById(String id){
 		try{
 			Session session = HibernateConnection.doHibernateConnection().openSession();
@@ -43,6 +45,23 @@ public List<Products> getAllProducts(){
 		catch(Exception e){
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+//DEVUELVO UN PRODUCTO POR SU ID
+	public Products getProductByProductId(String id) {
+		try {
+			
+			Session session = HibernateConnection.doHibernateConnection().openSession();
+			
+			List <Products> product = session.createQuery("From Products where id='"+id+"'").list();
+			
+			//SOLO DEVUELVE UNO PORQUE ID ES PK
+			return product.get(0);
+			
+		}catch(Exception e) {
+			
+			return null;
 		}
 	}
 	
