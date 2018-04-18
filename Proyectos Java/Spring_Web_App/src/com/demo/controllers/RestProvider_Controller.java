@@ -31,7 +31,7 @@ public class RestProvider_Controller {
 		return json.toString();
 	}
 	
-	
+	//DEVUELVE LA PETICION DE TODOS LOS PRODUCTOS
 	@RequestMapping(value="/jsonGetAllProducts", method=RequestMethod.GET)
 	public String jsonGetAllProducts() {
 		
@@ -48,5 +48,17 @@ public class RestProvider_Controller {
 		
 		return jArray.toString();
 	}
+	
+	
+	@RequestMapping(value="/xmlGetProductById/{productId}", method=RequestMethod.GET)
+	public Products xmlGetProductById(@PathVariable("productId") String productId) {
+		
+		Products product = RegisteryDAO.getProductsDAO().getProductByProductId(productId);
+		product.setImage("http://localhost:8081/Spring_Web_App/img/"+product.getImage());
+		
+		//DEVUELVO UN POJO DE PRODUCTO
+		return product;
+	}
+	
 	
 }

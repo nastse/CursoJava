@@ -5,16 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+
+@XmlRootElement(name="product")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name="products")
 public class Products {
 
+	@XmlAttribute
 	@Column(name="id")
 	@Id
 	@GeneratedValue //PARA DECIR QUE ES AUTOINCREMENTADO
 	private int id;
 	
+	@XmlElement(name="name123")
 	@Column(name="name")
 	private String name;
 	
