@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.dao.registery.RegisteryDAO;
 import com.demo.models.Login_Model;
 import com.demo.pojo.User;
 
@@ -69,9 +70,12 @@ public class Login_Controller {
 			//Si no hay ningun error me compruebo mi User y password para loguearme 	
 			}else {
 				
-				Login_Model lm = new Login_Model();
+				//Login_Model lm = new Login_Model();
 				//LOGUE USANDO CONSULTA HQL
-				String message = lm.doHibernateLogin(username, password);
+				//String message = lm.doHibernateLogin(username, password);
+				//MODELO DAO
+				String message = RegisteryDAO.getUserDAO().doHibernateLogin(username, password);
+				
 				if(message.equals("Login Correcto")) {
 					
 					//RECOJO LA SESION Y LE ASIGNO UN NOMBRE

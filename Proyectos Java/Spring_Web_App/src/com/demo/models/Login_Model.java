@@ -11,6 +11,7 @@ import com.demo.pojo.User;
 
 public class Login_Model {
 	
+	//USANDO SQL
 	public String do_login_process(String username, String password) {
 		
 		try {
@@ -44,6 +45,7 @@ public class Login_Model {
 		
 	}
 	
+	//USANDO HQL
 	public String doHibernateLogin(String username, String password) {
 		
 		try {

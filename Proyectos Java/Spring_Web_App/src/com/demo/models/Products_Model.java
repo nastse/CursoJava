@@ -9,6 +9,7 @@ import com.demo.pojo.Products;
 public class Products_Model {
 	
 	
+	//PARA QUERYS TIPO HQL
 	//LO PASO A DAO.IMPLEMENTACION Y LO LLAMO EN DAO.LAYER
 	public List<Products> getAllProducts(){
 		
@@ -24,14 +25,14 @@ public class Products_Model {
 
 	
 	//PARA QUERYS TIPO SQL
-			public List<Object[]> getAllProductsSQL(){
+	public List<Object[]> getAllProductsSQL(){
 			
-			Session session = HibernateConnection.doHibernateConnection().openSession();
+		Session session = HibernateConnection.doHibernateConnection().openSession();
 			
-			List<Object[]> allProducts = session.createSQLQuery("Select * from products").list();
-			session.close();
+		List<Object[]> allProducts = session.createSQLQuery("Select * from products").list();
+		session.close();
 			
-			return allProducts;
-		}
+		return allProducts;
+	}
 		
 }

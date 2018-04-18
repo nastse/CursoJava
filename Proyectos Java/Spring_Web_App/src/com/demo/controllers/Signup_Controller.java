@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.dao.registery.RegisteryDAO;
 import com.demo.models.Signup_Model;
 import com.demo.pojo.User;
 
@@ -73,7 +74,9 @@ public class Signup_Controller
 				//message = sm.doSignUp(username, repassword, gender, vehicle, country, image);
 				
 				//INSERTAR UN USUARIO EN LA BDDA TIPO HQL
-				message=sm.doHibernateSignUp(user);
+				//message=sm.doHibernateSignUp(user);
+				//MODELO TIPO DAO
+				message = RegisteryDAO.getUserDAO().doHibernateSignUp(user);
 				
 				String path = request.getSession().getServletContext().getRealPath("/") + "//WEB-INF//images//";
 				
